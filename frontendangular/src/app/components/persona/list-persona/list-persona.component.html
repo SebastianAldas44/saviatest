@@ -1,0 +1,65 @@
+<div class="d100 dcentro overflow-hidden bg-white my-lg-5 my-md-3 my-2 pad20">
+	<div class="d100">
+		<h2>Listado de personas</h2>
+	</div>
+	<div class="d100 border border-warning mb-3"></div>
+	<div class="d100 d-flex justify-content-end mb-3">
+		<a [routerLink]="['/crear']" class="btn btn-info">Nueva Persona</a>
+	</div>
+	<div class="d100 d-block table-responsive" id="tablePersonas" *ngIf="!loading">
+		<table class="table table-bordered">
+			<thead class="bg-info">
+				<tr>
+					<th class="text-center align-middle">Nombre</th>
+					<th class="text-center align-middle">Apellidos</th>
+					<th class="text-center align-middle">Email</th>
+					<th class="text-center align-middle">Fecha de Nacimiento</th>
+					<th class="text-center align-middle">Salario</th>
+					<th class="text-center align-middle"></th>
+					<th class="text-center align-middle"></th>
+				</tr>
+			</thead>
+			<tbody *ngIf="personas.length <= 0">
+				<tr>
+					<td colspan="7" class="text-center align-middle">No existe personas</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="personas.length > 0">
+				<tr *ngFor="let persona of personas;">
+					<td class="align-middle">{{ persona.nombre }}</td>
+					<td class="align-middle">{{ persona.apellidos }}</td>
+					<td class="align-middle">{{ persona.email }}</td>
+					<td class="align-middle">{{ persona.fechaNacimiento }}</td>
+					<td class="align-middle">$ {{ persona.salario }}</td>
+					<td class="align-middle">
+						<a [routerLink]="['/editar', persona.id]" class="btn btn-sm btn-primary">Editar</a>
+					</td>
+					<td class="align-middle">
+						<button type="button" class="btn btn-sm btn-danger btn-delete-person" (click)="showModal(persona.id, modalConfirm)">Eliminar</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="d100 dcentro d-none" id="loading" *ngIf="loading">
+		<div class="spinner-border text-dark" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+</div>
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header bg-warning">
+	    <h5 class="modal-title">Atención!</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        	<span aria-hidden="true">&times;</span>
+        </button>
+  	</div>
+  	<div class="modal-body">
+    	<p>¿Está seguro que desea eliminar a la persona seleccionada?</p>
+  	</div>
+  	<div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="deletePerson()">Confirmar</button>
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss()">Cancelar</button>
+  	</div>
+</ng-template>

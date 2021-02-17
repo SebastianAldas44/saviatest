@@ -1,0 +1,55 @@
+<div class="d100 dcentro my-5 my-md-3 my-2">
+	<div class="col-lg-8 overflow-hidden px-0 border border-dark bg-white">
+		<div class="d100 bg-info py-3 px-3">
+			<h2>Registro de Personas</h2>
+		</div>
+		<div class="d100 px-3 border border-bottom border-warning mb-3"></div>
+		<form class="d100 px-3 pb-3" #formCreate="ngForm" (ngSubmit)="savePerson()">
+			<div class="d100 dcentro">
+				<div class="col-md-2 text-sm-right form-group">
+					<strong>Nombre:</strong>
+				</div>
+				<div class="col-md-4 form-group">
+					<input type="text" class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="persona.nombre" value="{{ persona.nombre }}" required />
+					<small *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback d-block">El nombre es obligatorio.</small>
+				</div>
+				<div class="col-md-2 text-sm-right form-group">
+					<strong>Apellidos:</strong>
+				</div>
+				<div class="col-md-4 form-group">
+					<input type="text" class="form-control" name="apellidos" #apellidos="ngModel" [(ngModel)]="persona.apellidos" value="{{ persona.apellidos }}" required />
+					<small *ngIf="apellidos.invalid && apellidos.touched" class="invalid-feedback d-block">Los apellidos son obligatorios.</small>
+				</div>
+			</div>
+			<div class="d100 dcentro">
+				<div class="col-md-2 text-sm-right form-group">
+					<strong>Email:</strong>
+				</div>
+				<div class="col-md-4 form-group">
+					<input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="persona.email" value="{{ persona.email }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+					<small *ngIf="email.invalid && email.touched" class="invalid-feedback d-block">El email es obligatorio.</small>
+				</div>
+				<div class="col-md-2 text-sm-right form-group">
+					<strong>Fecha de Nacimiento:</strong>
+				</div>
+				<div class="col-md-4 form-group">
+					<!--<input type="text" class="form-control" name="fechaNacimiento" #fechaNacimiento="ngModel" [(ngModel)]="persona.fechaNacimiento" value="{{ persona.fechaNacimiento }}" required />-->
+					<input input="text" class="form-control bg-white" name="fechaNacimiento" ngbDatepicker value="persona.fechaNacimiento" [startDate]="persona.fechaNacimiento" [maxDate]="maxDate"  #fechaNacimiento="ngbDatepicker" [(ngModel)]="persona.fechaNacimiento" (click)="fechaNacimiento.toggle()" readonly required />
+					<small *ngIf="fechaNacimiento.invalid && fechaNacimiento.touched" class="invalid-feedback d-block">La fecha de nacimiento es obligatoria.</small>
+				</div>
+			</div>
+			<div class="d100 dcentro-v">
+				<div class="col-md-2 text-sm-right form-group">
+					<strong>Salario:</strong>
+				</div>
+				<div class="col-md-4 form-group">
+					<input type="number" class="form-control" name="salario" #salario="ngModel" [(ngModel)]="persona.salario" min="1" value="{{ persona.salario }}" required />
+					<small *ngIf="salario.invalid && salario.touched" class="invalid-feedback d-block">El salario es obligatorio.</small>
+				</div>
+			</div>
+			<div class="d100 d-flex justify-content-end">
+				<button type="submit" class="btn btn-dark" [disabled]="formCreate.invalid">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>

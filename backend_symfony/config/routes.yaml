@@ -1,0 +1,23 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+personaList:
+  path: /
+  controller: App\Controller\PersonaController::list
+  methods: [GET]
+
+personaCreate:
+  path: /
+  controller: App\Controller\PersonaController::create
+  methods: [POST]
+
+personaUpdate:
+  path: /
+  controller: App\Controller\PersonaController::update
+  methods: [PUT]
+
+personaDelete:
+  path: /
+  controller: App\Controller\PersonaController::delete
+  methods: [delete]
